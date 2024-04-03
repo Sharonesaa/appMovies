@@ -1,0 +1,107 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  font-family: Tahoma, Geneva, sans-serif, Verdana;
+}
+
+.menuBox {
+  background-color: #000000b6;
+  border-radius: 0;
+  margin-bottom: 0;
+  min-height: 30px;
+  padding: .4%;
+}
+
+.mainmenu {
+  float: left;
+  padding-left: 50px;
+  display: flex;
+  list-style-type: none;
+}
+
+.mainmenu li > a {
+    padding: 7px 12px;
+    font-size: .7em;
+    color: rgb(255, 254, 254);
+}
+
+.mainmenu li {
+  margin-right: 30px; /* Espacio entre elementos */
+}
+
+.socialNetworks {
+  margin-right: 60px;
+  float: right;
+  display: flex; /* Utilizamos flexbox para alinear elementos en línea */
+  list-style-type: none; /* Quitamos los estilos de lista por defecto */
+  padding: 0; /* Quitamos el padding */
+}
+
+.socialNetworks li {
+  margin-right: 30px; /* Espacio entre elementos */
+}
+
+.socialNetworks img {
+  width: 40px; /* Ancho de las imágenes */
+  height: 30px; /* Altura de las imágenes */
+}
+
+.titleBox {
+  background-color: rgb(190, 29, 29); /* Fondo rojo */
+  text-align: center; /* Centrar el texto */
+  padding: 20px; /* Espacio interno alrededor del texto */
+}
+
+.titleBox h1 {
+  color: white; /* Color blanco para el texto */
+  font-size: 36px; /* Tamaño de fuente */
+  text-transform: uppercase; /* Convertir el texto a mayúsculas */
+  font-weight: bold; /* Negrita */
+}
+
+.moviesContainer{
+  height: 100%;
+  width: 100%;
+  background-color: rgb(0, 0, 0);
+  background-position: center;
+  background-size: cover;
+  position: absolute;
+  display: flex;
+} 
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.card h3 {
+  margin-bottom: 5px;
+}
+.card p {
+  margin-bottom: 10px;
+}
+
+.cinemaListings {
+  margin: 0 auto;
+  height: 80%;
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap; /* Añadimos flex-wrap para que las tarjetas se ajusten al contenedor */
+  justify-content: space-around; /* Espacio alrededor de las tarjetas */
+  gap: 15px;
+  box-sizing: border-box;
+  background-color: #757474b6;
+  margin-top: 1%;
+  padding: 20px; /* Añadimos un poco de espacio interno al contenedor */
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+  width: calc(20% - 20px); /* Ancho de las tarjetas calculado para tres tarjetas por fila con espacio entre ellas */
+  margin-bottom: 20px; /* Espacio inferior entre las tarjetas */
+  box-sizing: border-box;
+}
