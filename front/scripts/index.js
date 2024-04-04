@@ -1,14 +1,34 @@
 const moviesContainer = document.getElementById('moviesContainer')
 
+function mainscream(){const carouselInner = document.querySelector('.carousel-inner');
+carouselInner.innerHTML = ''; 
+
+tempData.forEach((movie, index) => {
+    const card = createTags(movie); 
+    const carouselItem = document.createElement('div');
+    carouselItem.classList.add('carousel-item');
+    if (index === 0) { 
+        carouselItem.classList.add('active');
+    }
+    carouselItem.appendChild(card);
+    carouselInner.appendChild(carouselItem); 
+});
+}
+
+
 function transformmovies() {
-    // Limpiar el contenedor antes de agregar las tarjetas
-    moviesContainer.innerHTML = '';
-    
-    tempData.map(movie => {
-        // Llamar a la función createTags para obtener la tarjeta de película
-        const card = createTags(movie);
-        // Añadir la tarjeta al contenedor en el DOM
-        moviesContainer.appendChild(card);
+    const carouselInner = document.querySelector('.carousel-inner');
+    carouselInner.innerHTML = ''; 
+
+    tempData.forEach((movie, index) => {
+        const card = createTags(movie); 
+        const carouselItem = document.createElement('div');
+        carouselItem.classList.add('carousel-item');
+        if (index === 0) {
+            carouselItem.classList.add('active');
+        }
+        carouselItem.appendChild(card);
+        carouselInner.appendChild(carouselItem); 
     });
 }
 
@@ -16,9 +36,21 @@ function createTags(movie) {
     const { title, year, director, duration, genre, rate, poster } = movie;
 
     const card = document.createElement('div');
-    card.classList.add('card');
+    card.classList.add('cards');
 
-    // Crear elementos para mostrar los datos de la película
+    const imageContainer = document.createElement('div');
+    imageContainer.classList.add('image-container');
+
+    const posterElement = document.createElement('img');
+    posterElement.src = poster;
+    posterElement.alt = title;
+    posterElement.classList.add('poster-image');
+
+    imageContainer.appendChild(posterElement);
+
+    const textContainer = document.createElement('div');
+    textContainer.classList.add('text-container');
+
     const titleElement = document.createElement('h2');
     titleElement.textContent = title;
 
@@ -37,21 +69,19 @@ function createTags(movie) {
     const rateElement = document.createElement('p');
     rateElement.textContent = `Rate: ${rate}`;
 
-    const posterElement = document.createElement('img');
-    posterElement.src = poster;
-    posterElement.alt = title;
+    textContainer.appendChild(titleElement);
+    textContainer.appendChild(yearElement);
+    textContainer.appendChild(directorElement);
+    textContainer.appendChild(durationElement);
+    textContainer.appendChild(genreElement);
+    textContainer.appendChild(rateElement);
 
-    // Añadir los elementos creados a la tarjeta
-    card.appendChild(titleElement);
-    card.appendChild(yearElement);
-    card.appendChild(directorElement);
-    card.appendChild(durationElement);
-    card.appendChild(genreElement);
-    card.appendChild(rateElement);
-    card.appendChild(posterElement);
-
-    return card; // Devolver la tarjeta creada
+    card.appendChild(imageContainer);
+    card.appendChild(textContainer);
+    
+    return card; 
 }
+
 
 document.addEventListener('DOMContentLoaded', function() {
     transformmovies();
