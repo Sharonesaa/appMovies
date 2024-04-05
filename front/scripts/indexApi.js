@@ -14,8 +14,6 @@ const listMovies = () => {
                 poster_path: movie.poster_path,
                 overview: movie.overview
             }));
-
-            console.log(formattedMovies);
             renderMovies(formattedMovies);
         },
         error: function(error) {
@@ -25,19 +23,25 @@ const listMovies = () => {
 };
 
 const renderMovies = (movies) => {
-    const container = $('#moviesContainer');
-    container.empty(); // Limpiar el contenedor antes de agregar las tarjetas
+    const carousel = $('.carousel-inner');
+    carousel.empty(); // Limpiar el contenedor antes de agregar las tarjetas
 
     movies.forEach(movie => {
         const card = `
-            <div class="card">
-                <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
-                <h3>${movie.title}</h3>
-                <p>${movie.overview}</p>
+            <div class="carousel-item">
+                <div class= "imgContainer" >
+                    <img src="https://image.tmdb.org/t/p/w500/${movie.poster_path}" alt="${movie.title}">
+                </div>
+                <div class= "imgTexto">
+                    <h3>${movie.title}</h3>
+                    <p>${movie.overview}</p>
+                </div>
             </div>
+            
         `;
-        container.append(card); // Agregar la tarjeta al contenedor
+        carousel.append(card); // Agregar la tarjeta al contenedor
     });
+    carousel.find('div:first').addClass('active');
 };
 
 
