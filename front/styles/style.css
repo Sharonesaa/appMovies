@@ -4,7 +4,6 @@
   font-size: 20px;
   font-family: Tahoma, Geneva, sans-serif, Verdana;
 }
-
 body{
   height: 100vh;
   background-color: black;
@@ -65,17 +64,15 @@ body{
   font-weight: bold;
 }
 
-.fondo{
-  background-color: black;
-}
-
 .moviesContainer{
   display: flex;
   background-color: rgb(0, 0, 0); 
+  width: 90%;
+  margin: 1rem auto;
 }
 
 .carousel {
-  width: 60%;
+  width: 70%;
   margin: 0 auto;
   display: flex;
 }
@@ -85,35 +82,79 @@ body{
   
 }
 
-.cards {
-  color: white; /* Color del texto en las tarjetas */
-  display: flex;
+.menuButtons {
+  width: 30%;
+  display: block;
+  background-color: black;
+
+  div {
+    width: 100%;
+    margin: 0 auto;
+    height: 33.33%;
+  }
+
+  button{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(190, 29, 29); 
+    color:rgb(255, 254, 254);
+    border-color:  rgb(190, 29, 29);
+
+  }
 }
 
-.imgContainer {
-  width: 45%;
-  float: left;
-  margin-left: 10%;
-
+.posters{
+  display : flex;
+  height: 300px;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-.imgTexto{
-  width: 35%;
-  float:right;
+.posterCard{
+  display: inline-block;
+  position: relative;
+  img{
+    width: 10rem;
+    z-index: -1;
+    height: 300px;
+  }
+}
+.text {
+    position:absolute;
+    top:0;
+    left:0;
+    height: 300px;
+    padding:10px;
+    margin:0;
+    overflow-y: scroll;
+    max-height: 300px;
+    opacity:0;
+    background-color: black;
 
+    p{
+      color:white;
+      font-size: 15px;
+    }
+}
+.text:hover{
+  z-index: 1;
 }
 
-
-.text-container {
-  width: 45%;
-  text-align: left;
+.desvanecer:hover{
+  transition: 500ms;
+  opacity:1;
 }
 
-.text-container p{
-  margin-top: 3%;
-  font-size: 16px;
+.overview-text{
+  color: black;
+  font-size: 18px;
 }
 
-.text-container h2{
-  font-size: 24px;
+.tooltip-inner {
+  max-width: 300px; /* Ancho máximo del tooltip */
+  background-color:rgb(190, 29, 29);/* Color de fondo del tooltip */
+  color: #ffffff; /* Color del texto del tooltip */
+  border-radius: 10; /* Opcional: quitar el borde redondeado del tooltip */
+  font-size: 18px;
+  border: 5px solid #ffffff
 }
