@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   font-size: 20px;
-  font-family: Tahoma, Geneva, sans-serif, Verdana;
+  font-family: 'Montserrat', sans-serif;
 }
 body{
   height: 100vh;
@@ -54,21 +54,20 @@ body{
 .titleBox {
   background-color: rgb(190, 29, 29); 
   text-align: center; 
-  padding: 20px; 
+  padding: 10px; 
 }
 
 .titleBox h1 {
   color: white; 
-  font-size: 36px; 
-  text-transform: uppercase;
-  font-weight: bold;
+  font-size: 50px;
+  font-family: 'Abril Fatface', cursive;
 }
 
 .moviesContainer{
   display: flex;
   background-color: rgb(0, 0, 0); 
-  width: 90%;
-  margin: 1rem auto;
+  width: 85%;
+  margin: 2rem auto;
 }
 
 .carousel {
@@ -85,21 +84,19 @@ body{
 .menuButtons {
   width: 30%;
   display: block;
-  background-color: black;
-
+  background-color: rgb(139, 24, 24);
+  border-radius: .4rem;
   div {
     width: 100%;
     margin: 0 auto;
     height: 33.33%;
   }
-
   button{
     width: 100%;
     height: 100%;
     background-color: rgb(190, 29, 29); 
     color:rgb(255, 254, 254);
-    border-color:  rgb(190, 29, 29);
-
+    border-color:  rgb(116, 16, 16);
   }
 }
 
@@ -108,6 +105,18 @@ body{
   height: 300px;
   overflow-x: auto;
   overflow-y: hidden;
+}
+
+.posters::-webkit-scrollbar {
+  height: 10px; /* Ajusta el tamaño de la barra de desplazamiento */
+}
+
+.posters::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0); /* Cambia el color del "pulgón" de la barra de desplazamiento */
+}
+
+.posters::-webkit-scrollbar-track {
+  background-color: #3d3d3d; /* Cambia el color del fondo de la barra de desplazamiento */
 }
 
 .posterCard{
@@ -130,12 +139,12 @@ body{
     max-height: 300px;
     opacity:0;
     background-color: black;
-
     p{
       color:white;
       font-size: 15px;
     }
 }
+
 .text:hover{
   z-index: 1;
 }
@@ -150,6 +159,21 @@ body{
   font-size: 18px;
 }
 
+.text::-webkit-scrollbar {
+  height: 10px; /* Ajusta el tamaño de la barra de desplazamiento */
+}
+
+.text::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0); /* Cambia el color del "pulgón" de la barra de desplazamiento */
+}
+
+.text::-webkit-scrollbar-track {
+  background-color: #3d3d3d; /* Cambia el color del fondo de la barra de desplazamiento */
+}
+
+
+   
+
 .tooltip-inner {
   max-width: 300px; /* Ancho máximo del tooltip */
   background-color:rgb(190, 29, 29);/* Color de fondo del tooltip */
@@ -158,3 +182,12 @@ body{
   font-size: 18px;
   border: 5px solid #ffffff
 }
+
+.carousel-caption h5 {
+  color: white; /* Color del texto */
+  text-shadow: 100px 100px 100px rgba(0, 0, 0, 0.5); /* Sombreado con desplazamiento y opacidad */
+  padding: 5px 10px; /* Espaciado interno */
+  font-family: 'Allerta', sans-serif;
+  font-size: 50px;
+}
+

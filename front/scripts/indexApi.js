@@ -1,16 +1,28 @@
 
 //FUNCION PRINCIPAL//
 
-const renderObjects = (objects, inLocaction,) => {
+const renderObjects = (objects, inLocaction) => {
     if (inLocaction === "carousel") {
         const carousel = $('.carousel-inner');
         carousel.empty(); 
-        
-        objects.map(element => {
+
+        const indicators = $('.carousel-indicators');
+        indicators.empty();
+
+        const objectsToShow = objects.slice(0, 5);
+
+        objectsToShow.map((element, index) => {
+            const isActive = index === 0 ? 'active' : ''; // Para marcar el primer elemento como activo
+            const indicator = `<li data-bs-target="#moviesCarousel" data-bs-slide-to="${index}" class="${isActive}"></li>`;
+            indicators.append(indicator)
+            
             const card = `
             <div class="carousel-item">
                 <div class= "imgContainer" >
                     <img src="https://image.tmdb.org/t/p/w500/${element.backdrop_path}" alt="${element.title}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>${element.title  ? element.title : element.name}</h5>
+                    </div>
                 </div>
             </div>`;
             carousel.append(card);
