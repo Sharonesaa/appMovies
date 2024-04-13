@@ -1,0 +1,36 @@
+#containerMain {
+    display: flex;
+    flex-wrap: wrap; /* Permitir que las tarjetas se envuelvan cuando no haya espacio suficiente */
+    justify-content: space-around; /* Distribuir el espacio alrededor de las tarjetas */
+    padding: 10px; /* Espaciado interno del contenedor principal */
+    background-color: #000000; /* Color de fondo del contenedor principal */
+}
+
+
+.containerMainCard {
+    display: inline-block;
+    width: 40%;
+    padding: 2%;
+    color: white;
+    background-color: rgb(116, 16, 16); /* Color de fondo para la tarjeta */
+    margin-bottom: 30px; 
+    border-radius: 5%;
+
+    p{
+        font-size: 75%;
+    }
+    h3{
+        font-size: 30px;
+    }
+}
+
+.containerMainCard img {
+    max-width: 50%; /* Reducir el tamaño de la imagen */
+    float: right; /* Colocar la imagen a la derecha */
+    margin-left: 10px; /* Espacio entre la imagen y el texto */
+}
+
+.containerMainCard div {
+    text-align: left; /* Alinear el texto a la izquierda dentro de la tarjeta */
+}
+

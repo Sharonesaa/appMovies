@@ -1,0 +1,50 @@
+
+.biggerContainer{ 
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+   
+
+}
+
+.infoContainer{
+    display: flex;
+    flex-wrap: wrap; 
+    background-color: #323232; 
+    width: 80%;
+    align-items: center;
+    margin: 2%;
+    padding: 2%;
+    border-radius: 10px;
+
+}
+
+.textContainer{
+    width: 50%; 
+    text-align: left;
+    margin-left: 10px; 
+    color: rgb(255, 249, 249);
+
+    ul {
+        padding-left: 30px; /* Añade un poco de espacio a la izquierda de la lista */
+        line-height: 2; /* Ajusta el interlineado */
+      }
+  
+      li {
+        margin-bottom: 6px; /* Añade espacio entre los elementos de la lista */
+      }
+
+}
+
+.contactPost{
+    width: 30%;
+    float: right; 
+   
+    
+}
+
+video::-webkit-media-controls {
+    display: none;
+}
+
+

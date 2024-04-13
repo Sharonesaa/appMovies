@@ -28,6 +28,27 @@ const renderObjects = (objects, inLocaction) => {
             carousel.append(card);
         });
         carousel.find('div:first').addClass('active')
+
+    } else if (inLocaction === "containerMain") {
+        const containerIn = $(`#${inLocaction}`);
+        containerIn.html('');
+        
+        objects.forEach(element => {
+            const title = element.title ? element.title : element.name;
+            const overview = element.overview ? element.overview : element.original_name; // Escapar comillas dobles en la descripción
+            const poster_path = element.poster_path ? element.poster_path : element.profile_path;
+
+            const card = `
+                <div class="containerMainCard">
+                    <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}">
+                    <div>
+                        <h3>${title}</h3> 
+                        <p>${overview}</p>   
+                    </div>
+                </div>
+            `;
+            containerIn.append(card);
+        });
     } else {
         const containerIn = $(`#${inLocaction}`);
         containerIn.html('');
@@ -52,6 +73,7 @@ const renderObjects = (objects, inLocaction) => {
             html: true, // Permitir HTML en el tooltip
             // Función para obtener el contenido del tooltip
         });
+
     }
 }
         
@@ -92,8 +114,12 @@ const mainConstructor = async () => {
     const seriesObjects = await getObjects('https://api.themoviedb.org/3/trending/tv/day?language=es');
     renderObjects(seriesObjects, "containerSeriesList");
 
+    const detailmovie = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
+    renderObjects(detailmovie, "containerMain");
+
     
 }
+
 
 $(document).ready(function($) {
     mainConstructor();

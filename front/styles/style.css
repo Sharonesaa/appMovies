@@ -7,7 +7,12 @@
 body{
   height: 100vh;
   background-color: black;
+  display: block;
+  margin: 0 auto;
 }
+
+
+/*ENCABEZADO*/
 
 .menuBox {
   background-color: #3d3d3d;
@@ -51,6 +56,8 @@ body{
   height: 30px; 
 }
 
+/*TITLE PRINCIPAL*/
+
 .titleBox {
   background-color: rgb(190, 29, 29); 
   text-align: center; 
@@ -63,12 +70,15 @@ body{
   font-family: 'Abril Fatface', cursive;
 }
 
+/*CONTAINER PRINCIPAL*/
 .moviesContainer{
   display: flex;
   background-color: rgb(0, 0, 0); 
   width: 85%;
   margin: 2rem auto;
 }
+
+/*CAROUSEL*/
 
 .carousel {
   width: 70%;
@@ -81,6 +91,18 @@ body{
   
 }
 
+.carousel-caption h5 {
+  color: white; /* Color del texto */
+  text-shadow: 100px 100px 100px rgba(0, 0, 0, 0.5); /* Sombreado con desplazamiento y opacidad */
+  padding: 5px 10px; /* Espaciado interno */
+  font-family: 'Allerta', sans-serif;
+  font-size: 50px;
+}
+
+
+
+/*MENU AL LADO DEL CAROUSEL */
+
 .menuButtons {
   width: 30%;
   display: block;
@@ -90,14 +112,28 @@ body{
     width: 100%;
     margin: 0 auto;
     height: 33.33%;
+ 
   }
-  button{
+  a{
     width: 100%;
     height: 100%;
     background-color: rgb(190, 29, 29); 
     color:rgb(255, 254, 254);
     border-color:  rgb(116, 16, 16);
+    display: flex; /* Utiliza flexbox para centrar el contenido verticalmente */
+    align-items: center; /* Centra verticalmente el texto */
+    justify-content: center; /* Centra horizontalmente el texto */
+    
   }
+}
+
+/*TARJETAS INFERIORES*/
+
+.bottomTittle{
+  width: 30rem; 
+  color:#3d3d3d;
+  padding-top:3%;
+  padding-bottom: 1%;
 }
 
 .posters{
@@ -172,8 +208,6 @@ body{
 }
 
 
-   
-
 .tooltip-inner {
   max-width: 300px; /* Ancho máximo del tooltip */
   background-color:rgb(190, 29, 29);/* Color de fondo del tooltip */
@@ -181,13 +215,5 @@ body{
   border-radius: 10; /* Opcional: quitar el borde redondeado del tooltip */
   font-size: 18px;
   border: 5px solid #ffffff
-}
-
-.carousel-caption h5 {
-  color: white; /* Color del texto */
-  text-shadow: 100px 100px 100px rgba(0, 0, 0, 0.5); /* Sombreado con desplazamiento y opacidad */
-  padding: 5px 10px; /* Espaciado interno */
-  font-family: 'Allerta', sans-serif;
-  font-size: 50px;
 }
 
