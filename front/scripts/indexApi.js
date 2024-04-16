@@ -21,11 +21,24 @@ const renderObjects = (objects, inLocaction) => {
                 <div class= "imgContainer" >
                     <img src="https://image.tmdb.org/t/p/w500/${element.backdrop_path}" alt="${element.title}">
                     <div class="carousel-caption d-none d-md-block">
-                        <h5>${element.title  ? element.title : element.name}</h5>
+                    <h5>${element.title ? element.title : element.name}</h5>
+                    <div class="botones">
+                        <button class="btn btn-primary play-btn" data-video-id="${element.youtube_video_id}">TRAILER</button>
+                        <button class="btn btn-primary info-btn" href="">INFORMACIÓN</button>
                     </div>
                 </div>
             </div>`;
             carousel.append(card);
+            console.log(objects)
+
+            // const playButton = carousel.querySelector('.carousel-item:last-child .play-btn');
+            // playButton.addEventListener('click', () => {
+            //     const videoId = playButton.getAttribute('data-video-id');
+            //     if (videoId) {
+            //         // Abrir el video de YouTube en una nueva ventana
+            //         window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+            //     }
+            // });
         });
         carousel.find('div:first').addClass('active')
 

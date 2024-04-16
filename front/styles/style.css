@@ -14,25 +14,32 @@ body{
 
 /*ENCABEZADO*/
 
+header {
+  position: fixed; /* Fija el header en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Un valor alto para que el header esté encima */
+}
+
 .menuBox {
-  background-color: #3d3d3d;
-  border-radius: 0;
-  margin-bottom: 0;
-  min-height: 40px;
-  padding: .4%;
+  background-color:transparent;
+  padding: .9%;
 }
 
 .mainmenu {
-  float: left;
-  padding-left: 50px;
-  display: flex;
-  list-style-type: none;
+  margin-right: 60px;
+  float: right;
+  display: flex; 
+  list-style-type: none; 
+  padding: 0;
 }
 
 .mainmenu li > a {
     padding: 7px 12px;
-    font-size: .7em;
-    color: rgb(255, 254, 254);
+    font-size: 25px;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
 }
 
 .mainmenu li {
@@ -40,11 +47,14 @@ body{
 }
 
 .socialNetworks {
-  margin-right: 60px;
-  float: right;
+  margin-top: 4%;
+  align-items: center;
   display: flex; 
   list-style-type: none; 
-  padding: 0;
+  align-items: center; /* Centra verticalmente el texto */
+  justify-content: center; /* Centra horizontalmente el texto */
+    
+
 }
 
 .socialNetworks li {
@@ -56,50 +66,57 @@ body{
   height: 30px; 
 }
 
-/*TITLE PRINCIPAL*/
-
-.titleBox {
-  background-color: rgb(190, 29, 29); 
-  text-align: center; 
-  padding: 10px; 
-}
-
-.titleBox h1 {
-  color: white; 
-  font-size: 50px;
-  font-family: 'Abril Fatface', cursive;
-}
-
-/*CONTAINER PRINCIPAL*/
-.moviesContainer{
-  display: flex;
-  background-color: rgb(0, 0, 0); 
-  width: 85%;
-  margin: 2rem auto;
-}
 
 /*CAROUSEL*/
 
 .carousel {
-  width: 70%;
   margin: 0 auto;
   display: flex;
+  width: 100%;
+
 }
 
+
 .carousel img{
+  display:block;
   width: 100%;
+  max-height: 600px;
+  margin-top: -50px;
   
 }
 
 .carousel-caption h5 {
   color: white; /* Color del texto */
-  text-shadow: 100px 100px 100px rgba(0, 0, 0, 0.5); /* Sombreado con desplazamiento y opacidad */
-  padding: 5px 10px; /* Espaciado interno */
-  font-family: 'Allerta', sans-serif;
-  font-size: 50px;
+  font-family: 'Kabel', sans-serif;
+  font-size: 70px;
+  text-align: left;
+  margin-left: -15%;
+  text-transform: uppercase;
+  letter-spacing: -8px;
+  margin-top: -35%;
+  -webkit-text-stroke: 4px #000; /* Borde negro de 2px */
+
 }
 
+.carousel-caption .button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
 
+.carousel-caption .play-btn,
+.carousel-caption .info-btn {
+  background-color:rgba(166, 0, 11, 0.715);;
+  border-color: rgba(166, 0, 11, 0.971);
+  border-radius: .4rem;
+  border-width: 3px;
+  color: #fff; /* Añade color de texto para que sea visible */
+  padding: 5px 15px; /* Ajusta el espaciado interno */
+}
+
+.carousel-caption .botones {
+  margin-left: -103%; /* Mueve el contenedor de botones a la izquierda en un 62% del contenedor padre */
+}
 
 /*MENU AL LADO DEL CAROUSEL */
 
@@ -131,7 +148,7 @@ body{
 
 .bottomTittle{
   width: 30rem; 
-  color:#3d3d3d;
+  color:rgba(166, 0, 11, 0.971);
   padding-top:3%;
   padding-bottom: 1%;
 }
