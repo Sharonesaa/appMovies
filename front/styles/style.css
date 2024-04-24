@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   font-size: 20px;
-  font-family: 'Montserrat', sans-serif;
 }
 body{
   height: 100vh;
@@ -10,7 +9,6 @@ body{
   display: block;
   margin: 0 auto;
 }
-
 
 /*ENCABEZADO*/
 
@@ -37,9 +35,8 @@ header {
 
 .mainmenu li > a {
     padding: 7px 12px;
-    font-size: 25px;
-    color: rgb(255, 255, 255);
-    font-weight: bold;
+    font-size: 20px;
+    color: rgb(255, 255, 255);  
 }
 
 .mainmenu li {
@@ -52,9 +49,7 @@ header {
   display: flex; 
   list-style-type: none; 
   align-items: center; /* Centra verticalmente el texto */
-  justify-content: center; /* Centra horizontalmente el texto */
-    
-
+  justify-content: center; /* Centra horizontalmente el texto */    
 }
 
 .socialNetworks li {
@@ -73,29 +68,24 @@ header {
   margin: 0 auto;
   display: flex;
   width: 100%;
-
 }
-
 
 .carousel img{
   display:block;
   width: 100%;
   max-height: 600px;
-  margin-top: -50px;
-  
+  margin-top: 0;
 }
 
 .carousel-caption h5 {
-  color: white; /* Color del texto */
-  font-family: 'Kabel', sans-serif;
-  font-size: 70px;
+  color:rgb(166, 0, 11); /* Color del texto */
+  font-family:  "Bebas Neue", sans-serif;
+  font-size: 80px;
   text-align: left;
   margin-left: -15%;
   text-transform: uppercase;
-  letter-spacing: -8px;
-  margin-top: -35%;
-  -webkit-text-stroke: 4px #000; /* Borde negro de 2px */
-
+  margin-top: -42%;
+  font-weight: bold;
 }
 
 .carousel-caption .button-container {
@@ -106,51 +96,89 @@ header {
 
 .carousel-caption .play-btn,
 .carousel-caption .info-btn {
-  background-color:rgba(166, 0, 11, 0.715);;
-  border-color: rgba(166, 0, 11, 0.971);
+  background-color:rgb(166, 0, 11);;
+  border-color:rgb(124, 2, 10);
   border-radius: .4rem;
   border-width: 3px;
   color: #fff; /* Añade color de texto para que sea visible */
   padding: 5px 15px; /* Ajusta el espaciado interno */
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 22;
 }
+
 
 .carousel-caption .botones {
-  margin-left: -103%; /* Mueve el contenedor de botones a la izquierda en un 62% del contenedor padre */
+  margin-left: -108%; /* Mueve el contenedor de botones a la izquierda en un 62% del contenedor padre */
 }
 
-/*MENU AL LADO DEL CAROUSEL */
-
-.menuButtons {
-  width: 30%;
-  display: block;
-  background-color: rgb(139, 24, 24);
-  border-radius: .4rem;
-  div {
-    width: 100%;
-    margin: 0 auto;
-    height: 33.33%;
- 
-  }
-  a{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(190, 29, 29); 
-    color:rgb(255, 254, 254);
-    border-color:  rgb(116, 16, 16);
-    display: flex; /* Utiliza flexbox para centrar el contenido verticalmente */
-    align-items: center; /* Centra verticalmente el texto */
-    justify-content: center; /* Centra horizontalmente el texto */
-    
-  }
+.text {
+  position:absolute;
+  top:0;
+  left:0;
+  width: 200px;
+  height: 300px;
+  padding:10px;
+  margin:0;
+  max-height: 300px;
+  opacity:0;
+  background-color: rgba(0, 0, 0, 0.727);
+  
+  button{
+    color:rgb(255, 255, 255);
+    width: 80%;
+    max-height: 100%;
+    background-color:rgba(116, 16, 16, 0.701) ;
+    margin-top: 10%;
+    padding: 2px 2px; /* Ajusta el espaciado interno */
+    font-family: 'Helvetica Neue', sans-serif;
+    border-radius: 5px;
 }
+}
+
+
+/*VIDEO DE TRAILER*/
+.youtubePlayerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo transparente con opacidad */
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+  display: none; /* Inicialmente oculto */
+}
+
+.youtubePlayerContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#youtubePlayer {
+  width: 500px;
+  height: 300px;
+  
+}
+
+iframe {
+  width:100%;
+  height: 100%;
+}
+
 
 /*TARJETAS INFERIORES*/
 
 .bottomTittle{
   width: 30rem; 
-  color:rgba(166, 0, 11, 0.971);
+  color:rgba(255, 255, 255, 0.971);
   padding-top:3%;
   padding-bottom: 1%;
+  margin-left: 1%;
+  font-family:  "Bebas Neue", sans-serif;
+  h1{
+    font-size: 70px;
+  }
 }
 
 .posters{
@@ -181,22 +209,6 @@ header {
     height: 300px;
   }
 }
-.text {
-    position:absolute;
-    top:0;
-    left:0;
-    height: 300px;
-    padding:10px;
-    margin:0;
-    overflow-y: scroll;
-    max-height: 300px;
-    opacity:0;
-    background-color: black;
-    p{
-      color:white;
-      font-size: 15px;
-    }
-}
 
 .text:hover{
   z-index: 1;
@@ -206,31 +218,3 @@ header {
   transition: 500ms;
   opacity:1;
 }
-
-.overview-text{
-  color: black;
-  font-size: 18px;
-}
-
-.text::-webkit-scrollbar {
-  height: 10px; /* Ajusta el tamaño de la barra de desplazamiento */
-}
-
-.text::-webkit-scrollbar-thumb {
-  background-color: rgb(0, 0, 0); /* Cambia el color del "pulgón" de la barra de desplazamiento */
-}
-
-.text::-webkit-scrollbar-track {
-  background-color: #3d3d3d; /* Cambia el color del fondo de la barra de desplazamiento */
-}
-
-
-.tooltip-inner {
-  max-width: 300px; /* Ancho máximo del tooltip */
-  background-color:rgb(190, 29, 29);/* Color de fondo del tooltip */
-  color: #ffffff; /* Color del texto del tooltip */
-  border-radius: 10; /* Opcional: quitar el borde redondeado del tooltip */
-  font-size: 18px;
-  border: 5px solid #ffffff
-}
-

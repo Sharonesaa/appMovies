@@ -1,5 +1,5 @@
 
-//FUNCION PRINCIPAL//
+//FUNCION RENDERIZAR//
 
 const renderObjects = (objects, inLocaction) => {
     if (inLocaction === "carousel") {
@@ -19,76 +19,60 @@ const renderObjects = (objects, inLocaction) => {
             const card = `
             <div class="carousel-item">
                 <div class= "imgContainer" >
-                    <img src="https://image.tmdb.org/t/p/w500/${element.backdrop_path}" alt="${element.title}">
+                    <img src="https://image.tmdb.org/t/p/original/${element.backdrop_path}&w=256&q=100" alt="${element.title}">
                     <div class="carousel-caption d-none d-md-block">
                     <h5>${element.title ? element.title : element.name}</h5>
                     <div class="botones">
-                        <button class="btn btn-primary play-btn" data-video-id="${element.youtube_video_id}">TRAILER</button>
-                        <button class="btn btn-primary info-btn" href="">INFORMACIÓN</button>
+                        <button class="btn btn-primary play-btn" id="${element.id}" media-type="${element.media_type}">Trailer</button>
+                        <button class="btn btn-primary info-btn" href="">Información</button>
                     </div>
                 </div>
             </div>`;
             carousel.append(card);
-            console.log(objects)
-
-            // const playButton = carousel.querySelector('.carousel-item:last-child .play-btn');
-            // playButton.addEventListener('click', () => {
-            //     const videoId = playButton.getAttribute('data-video-id');
-            //     if (videoId) {
-            //         // Abrir el video de YouTube en una nueva ventana
-            //         window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
-            //     }
-            // });
         });
         carousel.find('div:first').addClass('active')
 
-    } else if (inLocaction === "containerMain") {
-        const containerIn = $(`#${inLocaction}`);
-        containerIn.html('');
-        
-        objects.forEach(element => {
-            const title = element.title ? element.title : element.name;
-            const overview = element.overview ? element.overview : element.original_name; // Escapar comillas dobles en la descripción
-            const poster_path = element.poster_path ? element.poster_path : element.profile_path;
-
-            const card = `
-                <div class="containerMainCard">
-                    <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}">
-                    <div>
-                        <h3>${title}</h3> 
-                        <p>${overview}</p>   
-                    </div>
-                </div>
-            `;
-            containerIn.append(card);
-        });
+   
     } else {
         const containerIn = $(`#${inLocaction}`);
         containerIn.html('');
         
         objects.forEach(element => {
             const title = element.title ? element.title : element.name;
-            const overview = element.overview ? element.overview : element.original_name; // Escapar comillas dobles en la descripción
+            const overview = element.overview ? element.overview : element.original_name;
             const poster_path = element.poster_path ? element.poster_path : element.profile_path;
-
+            const media_type = element.media_type;
+            const id = element.id; // Asumiendo que cada película tiene un ID único
+        
             const card = `
                 <div class="posterCard">
-                    <img class="" style="10rem" id="tooltipMovie1" src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" data-toggle="tooltip" data-bs-original-title="${title}">
+                    <img style="10rem" src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}" data-bs-original-title="${title}">
                     <div class="text desvanecer">
-                        <p>"${overview}"</p>   
+                        <img class="imgplay" src="src/img/play.png" id="${id}" media-type="${media_type}" style="width:40%; height:25%; margin-top:55%; margin-left:30%" ; alt="play">     
                     </div>
                 </div>
             `;
             containerIn.append(card);
         });
-        $('[data-toggle="tooltip"]').tooltip({
-            placement: 'top',
-            html: true, // Permitir HTML en el tooltip
-            // Función para obtener el contenido del tooltip
-        });
-
-    }
+    }   
 }
+
+// const selectedMovie = objects.find(movie => movie.id == movieId);
+// if (selectedMovie) {
+//     const title = selectedMovie.title ? selectedMovie.title : selectedMovie.name;
+//     const overview = selectedMovie.overview ? selectedMovie.overview : selectedMovie.original_name;
+//     const poster_path = selectedMovie.poster_path ? selectedMovie.poster_path : selectedMovie.profile_path;
+    
+//     const movieDetailsElement = `
+//         <div class="movie">
+//         <h1>${title}</h1>
+//         <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}">
+//         <p>${overview}</p>
+//         </div>
+//     `;
+//     $('#movieDetails .containerMain').html(movieDetailsElement)
+    
+// }
         
 //Funcion llamada//
 
@@ -112,7 +96,7 @@ const getObjects = async (url) => {
     });
 };
 
-//Funcion Renderizar en Locación//
+//Funcion Principal (la primera que se ejecuta)/
 
 const mainConstructor = async () => {
     const carouselObjects = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
@@ -127,15 +111,47 @@ const mainConstructor = async () => {
     const seriesObjects = await getObjects('https://api.themoviedb.org/3/trending/tv/day?language=es');
     renderObjects(seriesObjects, "containerSeriesList");
 
-    const detailmovie = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
-    renderObjects(detailmovie, "containerMain");
-
+    // const videosYoutube = await getObjects('https://api.themoviedb.org/3/movie/157336/videos?append_to_response=videos');
+    // renderObjects(videosYoutube, "carousel");
     
 }
 
 
-$(document).ready(function($) {
+$(document).ready(function() {
     mainConstructor();
+
+    // Asignar evento de clic a los botones .play-btn usando delegación de eventos
+    $(document).on('click', '.play-btn', async function() {
+        const id = $(this).attr('id');
+        const media_type = $(this).attr('media-type');
+        if (id) {
+            const video_objects = await getObjects(`https://api.themoviedb.org/3/${media_type}/${id}/videos`);
+            const youtubeVideo = video_objects.find(video => video.site === "YouTube" && video.official && video.type === "Teaser" && !/(Now Playing|Vertical)/i.test(video.name));
+            console.log(youtubeVideo);
+            if (youtubeVideo) {
+                const videoKey = youtubeVideo.key;
+                const iframeCode = `<iframe src="https://www.youtube.com/embed/${videoKey}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+
+        // Mostrar el contenedor del video y establecer el código del iframe
+                $('.youtubePlayerOverlay').fadeIn();
+                $('#youtubePlayer').html(iframeCode);
+            }
+        }
+    });
+
+    // Asignar evento de clic para cerrar el video al hacer clic fuera del contenedor
+    $('.youtubePlayerOverlay').on('click', function(e) {
+        if ($(e.target).hasClass('youtubePlayerOverlay')) {
+            $(this).fadeOut();
+        }
+    });
+
+ // Manejador de eventos click para las tarjetas de película
+    $(document).on('click', '.imgplay', function() {
+        const id = $(this).attr('id');
+        const media_type = $(this).attr('media-type');
+        window.location.href = `detailmovie.html?id=${id}&mediatype=${media_type}`;
+    });
 });
 
-
+module.exports = { renderObjects };
