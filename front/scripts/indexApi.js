@@ -1,4 +1,3 @@
-
 //FUNCION RENDERIZAR//
 
 const renderObjects = (objects, inLocaction) => {
@@ -57,23 +56,6 @@ const renderObjects = (objects, inLocaction) => {
     }   
 }
 
-// const selectedMovie = objects.find(movie => movie.id == movieId);
-// if (selectedMovie) {
-//     const title = selectedMovie.title ? selectedMovie.title : selectedMovie.name;
-//     const overview = selectedMovie.overview ? selectedMovie.overview : selectedMovie.original_name;
-//     const poster_path = selectedMovie.poster_path ? selectedMovie.poster_path : selectedMovie.profile_path;
-    
-//     const movieDetailsElement = `
-//         <div class="movie">
-//         <h1>${title}</h1>
-//         <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}">
-//         <p>${overview}</p>
-//         </div>
-//     `;
-//     $('#movieDetails .containerMain').html(movieDetailsElement)
-    
-// }
-        
 //Funcion llamada//
 
 const getObjects = async (url) => {
@@ -96,19 +78,61 @@ const getObjects = async (url) => {
     });
 };
 
+// const getObjects = async (url) => {
+//     try {
+//         const response = await fetch(url, {
+//             method: 'GET',
+//             headers: {
+//                 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI',
+//                 'Content-Type': 'application/json'
+//             }
+//         });
+
+//         if (!response.ok) {
+//             throw new Error('Network response was not ok');
+//         }
+
+//         const data = await response.json();
+//         const objects = data.results.slice(0, 20);
+//         return objects;
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//         throw error; // Re-lanza el error para que sea manejado por quien llama a la función
+//     }
+// };
+
+// import axios from 'axios';
+
+// const getObjects = async (url) => {
+//     try {
+//         const response = await axios.get(url, {
+//             headers: {
+//                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI'
+//             }
+//         });
+
+//         const objects = response.data.results.slice(0, 20);
+//         return objects;
+//     } catch (error) {
+//         console.error('Error fetching data:', error);
+//         throw error;
+//     }
+// };
+
+
 //Funcion Principal (la primera que se ejecuta)/
 
 const mainConstructor = async () => {
-    const carouselObjects = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
+    const carouselObjects = await getObjects('http://localhost:3000/movies');
     renderObjects(carouselObjects, "carousel");
     
-    const moviesObjects = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
+    const moviesObjects = await getObjects('http://localhost:3000/movies');
     renderObjects(moviesObjects, "containerMoviesList");
     
-    const novelsObjects = await getObjects('https://api.themoviedb.org/3/trending/person/day?language=es');
+    const novelsObjects = await getObjects('http://localhost:3000/person');
     renderObjects(novelsObjects, "containerNovelsList");
     
-    const seriesObjects = await getObjects('https://api.themoviedb.org/3/trending/tv/day?language=es');
+    const seriesObjects = await getObjects('http://localhost:3000/series');
     renderObjects(seriesObjects, "containerSeriesList");
 
     // const videosYoutube = await getObjects('https://api.themoviedb.org/3/movie/157336/videos?append_to_response=videos');
@@ -154,4 +178,3 @@ $(document).ready(function() {
     });
 });
 
-module.exports = { renderObjects };
