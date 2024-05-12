@@ -1,13 +1,21 @@
-const {Movie} = require ("../models/Movie")
+const {Movie} = require ("../models/movie.js")
 module.exports = {
     getAllMovies: async() => {
         try {
             const movies = await Movie.find();
-            console.log("Documentos encontrados en la colección 'Movie':", movies.length);
-
             return movies;
         } catch (error) {
             console.error("Error al buscar películas:", error);
+            throw error; // Lanza el error para que sea manejado por el controlador
+        }
+    },
+
+    postAllMovies: async(movie) => {
+        try {
+            const newMovie = await Movie.create(movie);
+            return newMovie;
+        } catch (error) {
+            console.error("Error al crear película:", error);
             throw error; // Lanza el error para que sea manejado por el controlador
         }
     }

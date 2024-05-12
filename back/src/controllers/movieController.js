@@ -5,22 +5,20 @@ module.exports = {
         const movies = await movieService.getAllMovies();
         
         res.status(200).json(movies);
+    },
+
+    postMovies: async (req, res) => {
+        try {
+            const movieData = req.body; // Suponiendo que estás enviando los datos de la película en el cuerpo de la solicitud
+            const newMovie = await movieService.postAllMovies(movieData);
+            res.status(201).json(newMovie);
+        } catch (error) {
+            console.error("Error al crear película:", error);
+            res.status(500).json({ error: "Error interno del servidor" });
+        }
     }
-
-    // getSeries: async (req,res) => {
-    //     const series = await movieService.getAllSeries();
-        
-    //     res.status(200).json(series);
-
-    // },
-
-    // getPerson: async (req,res) => {
-    //     const person = await movieService.getAllPerson();
-        
-    //     res.status(200).json(person);
-
-    // },
+};
 
     
-};
+
 
