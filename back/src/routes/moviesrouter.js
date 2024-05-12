@@ -5,9 +5,9 @@ const moviesRouter = Router()
 
 moviesRouter.get ("/movies", movieController.getMovies);
 
-moviesRouter.get ("/series", movieController.getSeries);
+// moviesRouter.get ("/series", movieController.getSeries);
 
-moviesRouter.get ("/person", movieController.getPerson);
+// moviesRouter.get ("/person", movieController.getPerson);
 
 
 module.exports = {
