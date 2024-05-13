@@ -7,9 +7,9 @@ moviesRouter.get ("/movies", movieController.getMovies);
 
 moviesRouter.post("/movies",movieController.postMovies);
 
-// moviesRouter.get ("/series", movieController.getSeries);
+moviesRouter.get ("/series", movieController.getSeries);
 
-// moviesRouter.get ("/person", movieController.getPerson);
+moviesRouter.get ("/actors", movieController.getActors);
 
 
 module.exports = {

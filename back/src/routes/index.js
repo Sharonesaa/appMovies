@@ -6,9 +6,9 @@ const {moviesRouter} = require("./moviesrouter.js")
 
 router.use("/",moviesRouter)
 
-// router.use("/series",moviesRouter)
+router.use("/series",moviesRouter)
 
-// router.use("/person",moviesRouter)
+router.use("/actors",moviesRouter)
 
 module.exports = {
     router

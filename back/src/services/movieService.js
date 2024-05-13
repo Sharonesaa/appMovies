@@ -1,4 +1,9 @@
 const {Movie} = require ("../models/movie.js")
+
+const {Serie} = require("../models/serie.js")
+
+const {Actor} = require("../models/actor.js")
+
 module.exports = {
     getAllMovies: async() => {
         try {
@@ -18,7 +23,28 @@ module.exports = {
             console.error("Error al crear película:", error);
             throw error; // Lanza el error para que sea manejado por el controlador
         }
-    }
+    },
+
+    getAllSeries: async() => {
+        try {
+            const series = await Serie.find();
+            return series;
+        } catch (error) {
+            console.error("Error al buscar películas:", error);
+            throw error; // Lanza el error para que sea manejado por el controlador
+        }
+    },
+
+    getAllActors: async() => {
+        try {
+            const actors = await Actor.find();
+            return actors;
+        } catch (error) {
+            console.error("Error al buscar actores:", error);
+            throw error; // Lanza el error para que sea manejado por el controlador
+        }
+    },
+
 
 };
 // return fetch('https://api.themoviedb.org/3/trending/all/day?language=es', {

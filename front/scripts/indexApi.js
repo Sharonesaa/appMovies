@@ -1,7 +1,8 @@
-//FUNCION RENDERIZAR//
 
 const renderObjects = (objects, inLocaction) => {
+
     if (inLocaction === "carousel") {
+      
         const carousel = $('.carousel-inner');
         carousel.empty(); 
 
@@ -9,7 +10,7 @@ const renderObjects = (objects, inLocaction) => {
         indicators.empty();
 
         const objectsToShow = objects.slice(0, 5);
-
+      
         objectsToShow.map((element, index) => {
             const isActive = index === 0 ? 'active' : ''; // Para marcar el primer elemento como activo
             const indicator = `<li data-bs-target="#moviesCarousel" data-bs-slide-to="${index}" class="${isActive}"></li>`;
@@ -56,90 +57,43 @@ const renderObjects = (objects, inLocaction) => {
     }   
 }
 
-//Funcion llamada//
-
 const getObjects = async (url) => {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            type: 'GET',
-            url: url,
-            headers: {
-                Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI'
-            },
-            contentType: 'application/json',
-            success: function(data) {
-                const objects= data.results.slice(0, 20);
-                resolve(objects);
-            },
-            error: function(error) {
-                reject(error);
-            }
-        });
-    });
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            throw new Error('Error al obtener datos del servidor');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error('Error en la solicitud:', error);
+        throw error;
+    }
 };
 
-// const getObjects = async (url) => {
-//     try {
-//         const response = await fetch(url, {
-//             method: 'GET',
-//             headers: {
-//                 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI',
-//                 'Content-Type': 'application/json'
-//             }
-//         });
-
-//         if (!response.ok) {
-//             throw new Error('Network response was not ok');
-//         }
-
-//         const data = await response.json();
-//         const objects = data.results.slice(0, 20);
-//         return objects;
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         throw error; // Re-lanza el error para que sea manejado por quien llama a la función
-//     }
-// };
-
-// import axios from 'axios';
-
-// const getObjects = async (url) => {
-//     try {
-//         const response = await axios.get(url, {
-//             headers: {
-//                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI'
-//             }
-//         });
-
-//         const objects = response.data.results.slice(0, 20);
-//         return objects;
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         throw error;
-//     }
-// };
-
-
-//Funcion Principal (la primera que se ejecuta)/
-
 const mainConstructor = async () => {
-    const carouselObjects = await getObjects('http://localhost:3000/movies');
-    renderObjects(carouselObjects, "carousel");
-    
-    const moviesObjects = await getObjects('http://localhost:3000/movies');
-    renderObjects(moviesObjects, "containerMoviesList");
-    
-    const novelsObjects = await getObjects('http://localhost:3000/person');
-    renderObjects(novelsObjects, "containerNovelsList");
-    
-    const seriesObjects = await getObjects('http://localhost:3000/series');
-    renderObjects(seriesObjects, "containerSeriesList");
+    try {
+        const carouselObjects = await getObjects('http://localhost:3000/movies');
+        renderObjects(carouselObjects, "carousel");
 
-    // const videosYoutube = await getObjects('https://api.themoviedb.org/3/movie/157336/videos?append_to_response=videos');
-    // renderObjects(videosYoutube, "carousel");
-    
-}
+        const moviesObjects = await getObjects('http://localhost:3000/movies');
+        renderObjects(moviesObjects, "containerMoviesList");
 
+        const seriesObjects = await getObjects('http://localhost:3000/series');
+        renderObjects(seriesObjects, "containerSeriesList");
+
+
+        const novelsObjects = await getObjects('http://localhost:3000/actors');
+        renderObjects(novelsObjects, "containerNovelsList");
+    
+       
+        // const videosYoutube = await getObjects('https://api.themoviedb.org/3/movie/157336/videos?append_to_response=videos');
+        // renderObjects(videosYoutube, "carousel");
+        
+    } catch (error) {
+        console.error('Error en la carga de datos:', error);
+    }
+};
 
 $(document).ready(function() {
     mainConstructor();
@@ -178,3 +132,69 @@ $(document).ready(function() {
     });
 });
 
+// / const getObjects = async (url) => {
+    //     return new Promise((resolve, reject) => {
+    //         $.ajax({
+    //             type: 'GET',
+    //             url: url,
+    //             headers: {
+    //                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI'
+    //             },
+    //             contentType: 'application/json',
+    //             success: function(data) {
+    //                 const objects= data.results.slice(0, 20);
+    //                 resolve(objects);
+    //                 console.log(ob)
+    //             },
+    //             error: function(error) {
+    //                 reject(error);
+    //             }
+    //         });
+    //     });
+    // };
+    
+    
+    // const getObjects = async (url) => {
+    //     try {
+    //         const response = await fetch(url, {
+    //             method: 'GET',
+    //             headers: {
+    //                 'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI',
+    //                 'Content-Type': 'application/json'
+    //             }
+    //         });
+    
+    //         if (!response.ok) {
+    //             throw new Error('Network response was not ok');
+    //         }
+    
+    //         const data = await response.json();
+    //         const objects = data.results.slice(0, 20);
+    //         return objects;
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //         throw error; // Re-lanza el error para que sea manejado por quien llama a la función
+    //     }
+    // };
+    
+    // import axios from 'axios';
+    
+    // const getObjects = async (url) => {
+    //     try {
+    //         const response = await axios.get(url, {
+    //             headers: {
+    //                 Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI'
+    //             }
+    //         });
+    
+    //         const objects = response.data.results.slice(0, 20);
+    //         return objects;
+    //     } catch (error) {
+    //         console.error('Error fetching data:', error);
+    //         throw error;
+    //     }
+    // };
+    
+    
+    //Funcion Principal (la primera que se ejecuta)/
+    

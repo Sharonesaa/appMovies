@@ -5,20 +5,20 @@ const objectSchema = {
     overview : String,
     poster_path : String,
     media_type : String,
-    moviedb_id : String, 
+    actordb_id : String, 
     backdrop_path : String,
 }
 
-const moviesSchema = new mongoose.Schema(objectSchema)
+const actorsSchema = new mongoose.Schema(objectSchema)
 
-const Movie = mongoose.model("Movie", moviesSchema)
+const Actor = mongoose.model("Actor", actorsSchema)
 
 
 module.exports={
-    Movie
+    Actor
 }
 
-// fetch('https://api.themoviedb.org/3/trending/movie/day?language=es', {
+// fetch('https://api.themoviedb.org/3/trending/person/day?language=es', {
 //     method: 'GET',
 //     headers: {
 //         'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI',
@@ -32,14 +32,14 @@ module.exports={
 //     return response.json();
 // })
 // .then(data => {
-//     for (let movie of data.results) {
-//         Movie.create({
-//             title : movie.title ? movie.title : movie.name,
-//             overview : movie.overview ? movie.overview : movie.original_name,
-//             poster_path : movie.poster_path ? movie.poster_path : movie.profile_path,
-//             media_type : movie.media_type,
-//             moviedb_id : movie.id,
-//             backdrop_path : movie.backdrop_path
+//     for (let actor of data.results) {
+//         Actor.create({
+//             title : actor.title ? actor.title : actor.name,
+//             overview : actor.overview ? actor.overview : actor.original_name,
+//             poster_path : actor.poster_path ? actor.poster_path : actor.profile_path,
+//             media_type : actor.media_type,
+//             Actordb_id : actor.id,
+//             backdrop_path : actor.backdrop_path
 
 //         })
 //     }
@@ -48,3 +48,4 @@ module.exports={
 //     console.error('Error en la solicitud:', error);
 //     throw new Error('Error en la solicitud'); // Lanza un error para manejarlo fuera de esta función
 // });
+

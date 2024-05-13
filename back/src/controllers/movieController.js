@@ -16,7 +16,22 @@ module.exports = {
             console.error("Error al crear película:", error);
             res.status(500).json({ error: "Error interno del servidor" });
         }
-    }
+    },
+
+    getSeries: async (req,res) => {
+        const series = await movieService.getAllSeries();
+        
+        res.status(200).json(series);
+    },
+
+    getActors: async (req,res) => {
+        const series = await movieService.getAllActors();
+        
+        res.status(200).json(series);
+    },
+
+
+    
 };
 
     
