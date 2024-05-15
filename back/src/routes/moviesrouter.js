@@ -5,6 +5,8 @@ const moviesRouter = Router()
 
 moviesRouter.get ("/movies", movieController.getMovies);
 
+moviesRouter.get("/movies/:id", movieController.getMovieById);
+
 moviesRouter.post("/movies",movieController.postMovies);
 
 moviesRouter.get ("/series", movieController.getSeries);

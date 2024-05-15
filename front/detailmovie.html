@@ -60,25 +60,24 @@
 
     <script>
         const renderObjects = (object) => {
-            var imageUrl = `url(https://image.tmdb.org/t/p/original/${object.backdrop_path}&w=256&q=100)`;
+            var imageUrl = `url(https://image.tmdb.org/t/p/original/${object.backdrop}&w=256&q=100)`;
 
             $('#movieDetails').css('backgroundImage', imageUrl);
             const containerMain = $(`#containerMain`)
             containerMain.empty('');
 
-            const title = object.title ? object.title : object.name;
-            const overview = object.overview ? object.overview : object.original_name;
-            const poster_path = object.poster_path ? object.poster_path : object.profile_path;
-            const id = object.id; // Asumiendo que cada película tiene un ID único;
+            const title = object.title;
+            const overview = object.overview;
+            const poster_path = object.poster;
+            const id = object._id; // Asumiendo que cada película tiene un ID único;
             const genres = object.genres.map(genre => genre.name).join(' | ');
-            const created = object.created_by.map(created_by => created_by.name).join(' | ')
+           
                 
            
             const card = `
                 <div class= "infoData">
                     <h4>${title}</h4>
                     <p>${genres}</p>
-                    <p>${created}</p>
                 </div>
                 <div class= "description">
                     <p>${overview}</p>
@@ -95,23 +94,17 @@
 
 
         const getObjects = async (url) => {
-            return new Promise((resolve, reject) => {
-                $.ajax({
-                    type: 'GET',
-                    url: url,
-                    headers: {
-                        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI'
-                    },
-                    contentType: 'application/json',
-                    success: function(data) {
-                        const objects= data;
-                        resolve(objects);
-                    },
-                    error: function(error) {
-                        reject(error);
-                    }
-                });
-            });
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Error al obtener datos del servidor');
+                }
+                const data = await response.json();
+                return data;
+            } catch (error) {
+                console.error('Error en la solicitud:', error);
+                throw error;
+            }
         };
 
         $(document).ready(async function() {
@@ -122,7 +115,7 @@
             const id = urlParams.get('id');
             const media_type = urlParams.get('mediatype');
 
-            const object = await getObjects(`https://api.themoviedb.org/3/${media_type}/${id}?language=es`);
+            const object = await getObjects(`http://localhost:3000/movies/${id}`);
             console.log(object);
 
             renderObjects(object);

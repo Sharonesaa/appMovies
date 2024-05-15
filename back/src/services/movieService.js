@@ -14,16 +14,29 @@ module.exports = {
             throw error; // Lanza el error para que sea manejado por el controlador
         }
     },
-
-    postAllMovies: async(movie) => {
+    
+    postAllMovies : async (formData) => { // Acepta formData como argumento
         try {
-            const newMovie = await Movie.create(movie);
-            return newMovie;
+            const newMovie = new Movie({
+                title: formData.title,
+                year: formData.year,
+                director : formData.director,
+                poster: formData.poster,
+                genres: formData.genres,
+                overview: formData.overview,
+                backdrop: formData.backdrop,
+                duration : formData.duration,
+                rate : formData.rate,
+            });
+    
+            const savedMovie = await newMovie.save();
+            return savedMovie; // Devuelve la película guardada
         } catch (error) {
-            console.error("Error al crear película:", error);
-            throw error; // Lanza el error para que sea manejado por el controlador
+            console.error('Error al agregar película:', error);
+            throw error;
         }
     },
+    
 
     getAllSeries: async() => {
         try {
