@@ -3,10 +3,14 @@ const {Movie} = require ("../models/movie.js")
 
 
 module.exports = {
-    getMovies: async (req,res) => {
-        const movies = await movieService.getAllMovies();
-        
-        res.status(200).json(movies);
+    getMovies: async (req, res) => {
+        try {
+            const movies = await movieService.getAllMovies();
+            res.status(200).json(movies);
+        } catch (error) {
+            console.error("Error al obtener las películas:", error);
+            res.status(500).json({ error: "Hubo un error al obtener las películas" });
+        }
     },
 
     postMovies: async (req, res) => {
@@ -35,6 +39,26 @@ module.exports = {
     },
 
 
+    getSeries: async (req, res) => {
+        try {
+            const series = await movieService.getAllSeries();
+            res.status(200).json(series);
+        } catch (error) {
+            console.error("Error al obtener las series:", error);
+            res.status(500).json({ error: "Hubo un error al obtener las series" });
+        }
+    },
+    
+    getActors: async (req, res) => {
+        try {
+            const actors = await movieService.getAllActors();
+            res.status(200).json(actors);
+        } catch (error) {
+            console.error("Error al obtener los actores:", error);
+            res.status(500).json({ error: "Hubo un error al obtener los actores" });
+        }
+    },
+    
     getMovieById: async (req, res) => {
         const movieId = req.params.id;
 
