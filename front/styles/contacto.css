@@ -48,3 +48,27 @@ video::-webkit-media-controls {
 }
 
 
+.socialNetworks {
+    margin-top: 40%;
+    align-items: center;
+    display: flex; 
+    list-style-type: none; 
+    align-items: center; /* Centra verticalmente el texto */
+    justify-content: center; /* Centra horizontalmente el texto */    
+  }
+  
+  .socialNetworks li {
+    margin-right: 30px; 
+  }
+  
+  .socialNetworks img {
+    width: 40px; 
+    height: 30px; 
+  }
+  
+
+  .menuBox {  background-color:rgba(212, 24, 24, 0.295);
+    padding: .9%;
+    height: 55px;
+  }
+  

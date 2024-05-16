@@ -20,9 +20,9 @@ header {
   z-index: 1000; /* Un valor alto para que el header esté encima */
 }
 
-.menuBox {
-  background-color:transparent;
+.menuBox {  background-color:rgba(0, 0, 0, 0.185);
   padding: .9%;
+  height: 40px;
 }
 
 .mainmenu {

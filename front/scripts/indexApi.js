@@ -89,8 +89,8 @@ const mainConstructor = async () => {
         renderObjects(seriesObjects, "containerSeriesList","tv");
 
 
-        const novelsObjects = await getObjects('http://localhost:3000/actors');
-        renderObjects(novelsObjects, "containerNovelsList","person");
+        const actorsObjects = await getObjects('http://localhost:3000/actors');
+        renderObjects(actorsObjects, "containerNovelsList","person");
     
        
         // const videosYoutube = await getObjects('https://api.themoviedb.org/3/movie/157336/videos?append_to_response=videos');
@@ -144,9 +144,10 @@ $(document).ready(function() {
     });
 
  // Manejador de eventos click para las tarjetas de película
-    $(document).on('click', '.imgplay', function() {
+ $(document).on ('click', '.imgplay', function() {
         const id = $(this).attr('id');
         const media_type = $(this).attr('media-type');
+        console.log ($(this))
         window.location.href = `detailmovie.html?id=${id}&mediatype=${media_type}`;
     });
 });

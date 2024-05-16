@@ -60,33 +60,40 @@
 
     <script>
         const renderObjects = (object) => {
-            var imageUrl = `url(https://image.tmdb.org/t/p/original/${object.backdrop}&w=256&q=100)`;
+            var backdrop_path = object.backdrop && object.backdrop.includes("http") 
+                ? object.backdrop
+                : `https://image.tmdb.org/t/p/original/${object.backdrop}&w=256&q=100`;
 
-            $('#movieDetails').css('backgroundImage', imageUrl);
-            const containerMain = $(`#containerMain`)
-            containerMain.empty('');
+                $('#movieDetails').css('background-image', `url('${backdrop_path}')`);
+                const containerMain = $('#containerMain'); 
 
             const title = object.title;
             const overview = object.overview;
-            const poster_path = object.poster;
-            const id = object._id; // Asumiendo que cada película tiene un ID único;
-            const genres = object.genres.map(genre => genre.name).join(' | ');
-           
-                
-           
+            const poster_path = object.poster && object.poster.includes("http")
+            ? object.poster
+            : `https://image.tmdb.org/t/p/w500/${object.poster}`;
+            const id = object._id;
+            const duration = object.duration
+            const rate = object.rate;
+            const genres = object.genres;
+            const year = object.year;
+            const director = object.director;
+
             const card = `
                 <div class= "infoData">
                     <h4>${title}</h4>
+                    <p>${director}</p>
+                    <p>${year}</p>
                     <p>${genres}</p>
+                    <p>${duration} minutos  ||  Popularidad:${rate}</p>
+                    
                 </div>
                 <div class= "description">
                     <p>${overview}</p>
                 </div>
                 <div class= "imgContainer" >
-                    <img src="https://image.tmdb.org/t/p/original/${poster_path}&w=256&q=100" alt="${title}">
+                    <img src="${poster_path}">
                 </div>
-                
-
             `;
             containerMain.html(card);
             

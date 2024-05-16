@@ -4,83 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/formulario.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    
 
 
     <title>Agregar Película</title>
 </head>
 <body>
-    <div class="container">
-        <title>Agregar Película</title>
-    </head>
-    <body>
-        <div class="container">
+    <div class="container" id="movieFormContainer">
+        <div style ="display:flex; justify-content: space-between;">
             <h1>Agregar Película</h1>
-            <form id="movieForm">
-                <label for="title">Título:</label>
-                <input type="text" id="title" name="title" required>
-    
-                <label for="overview">Resumen:</label>
-                <textarea id="overview" name="overview" required></textarea>
-    
-                <label for="poster">URL del Póster:</label>
-                <input type="text" id="poster" name="poster" required>
-    
-                <label for="genres">Genero:</label>
-                <input type="text" id="genres" name="genres" required>
-    
-                <label for="backdrop">URL del Fondo:</label>
-                <input type="text" id="backdrop" name="backdrop" required>
-
-                <label for="director">Director:</label>
-                <input type="text" id="director" name="director" required>
-    
-                <label for="year">Año:</label>
-                <input type="text" id="year" name="year" required>
-    
-                <label for="duration">Duración:</label>
-                <input type="text" id="duration" name="duration" required>
-
-                <label for="rate">Puntuación:</label>
-                <input type="text" id="rate" name="rate" required>
-    
-                <button type="submit">Agregar</button>
-                <button type="button" class="button-secondary" onclick="closeIframe()">Cerrar</button>
-            </form>
+            <button type="button" class="button-close" onclick="closeIframe()">&times;</button>
         </div>
-    
-        <script>
-            document.getElementById('movieForm').addEventListener('submit', async function(event) {
-                event.preventDefault();
-                const formData = new FormData(document.getElementById('movieForm'));
-                
-                // Crear un objeto para almacenar los datos del formulario
-                const formDataObject = {};
-                for (const [key, value] of formData.entries()) {
-                    formDataObject[key] = value;
-                }
-    
-                console.log('Datos del formulario a enviar:', formDataObject);
-    
-                try {
-                    const response = await fetch('http://localhost:3000/movies', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json', // Indica que el cuerpo de la solicitud está en formato JSON
-                        },
-                        body: JSON.stringify(formDataObject), // Convierte el objeto de datos del formulario a JSON antes de enviarlo
-                    });
-                    const data = await response.json();
-                    alert('Película agregada correctamente');
-                    console.log(data); // Puedes hacer algo con la respuesta del servidor si lo deseas
-                } catch (error) {
-                    console.error('Error al agregar película:', error);
-                    alert('Error al agregar película');
-                }
-            });
-    
-            function closeIframe() {
-                parent.document.getElementById('addMovieForm').style.display = 'none';
+        <form id="movieForm">
+
+            
+            <label for="title">Título:</label>
+            <input type="text" id="title" name="title" required>
+            <div><p id="title_error"></p></div>
+
+            <label for="overview">Resumen:</label>
+            <textarea id="overview" name="overview" required></textarea>
+            <div><p id="overview_error"></p></div>
+
+            <label for="poster">URL del Póster:</label>
+            <input type="text" id="poster" name="poster" required>
+            <div><p id="poster_error"></p></div>
+
+            <label for="genres">Genero:</label>
+            <input type="text" id="genres" name="genres" required>
+            <div><p id="genres_error"></p></div>
+
+            <label for="backdrop">URL del Fondo:</label>
+            <input type="text" id="backdrop" name="backdrop" required>
+            <div><p id="backdrop_error"></p></div>
+
+            <label for="director">Director:</label>
+            <input type="text" id="director" name="director" required>
+            <div><p id="director_error"></p></div>
+
+            <label for="year">Año:</label>
+            <input type="text" id="year" name="year" pattern="\d{4}" title="El año debe tener exactamente 4 dígitos"(se comenta para probar backend) required> 
+            <div><p id="year_error"></p></div>
+
+            <label for="duration">Duración:</label>
+            <input type="text" id="duration" name="duration" pattern="\d{2,}" title="La duración debe ingresarse en minutos" required>
+            <div><p id="duration_error"></p></div>
+
+            <label for="rate">Puntuación:</label>
+            <input type="text" id="rate" name="rate" pattern="[0-9]+([.][0-9]+)?" required>
+            <div><p id="rate_error"></p></div>
+
+            <button type="submit">Agregar</button>
+            <button type="button" class="button-secondary" onclick="vaciarFormulario()" >Vaciar formulario</button>
+            
+        </form>
+    </div>
+
+    <script> 
+        async function enviarDatos(event) {
+            event.preventDefault();
+
+            const formData = new FormData(document.getElementById('movieForm'));
+            const formDataObject = {};
+            for (const [key, value] of formData.entries()) {
+                formDataObject[key] = value;
             }
-        </script>
+
+            try {
+                const response = await axios.post('http://localhost:3000/movies', formDataObject);
+                alert('Película agregada correctamente');
+                console.log(response.data);
+            } catch (error) {
+                let dataerrors = error.response.data.error;
+                for (let error of dataerrors) {
+                let errorContainer = $(`#${error.field}_error`)
+                errorContainer.html(error.msg) 
+                }
+                console.error('Error al agregar película:', error.response);
+                alert('Error al agregar película');
+            }
+        }
+
+        function vaciarFormulario() {
+            document.getElementById("movieForm").reset();
+        }
+
+        function closeIframe() {
+            parent.document.getElementById('addMovieForm').style.display = 'none';
+        }
+
+        document.getElementById('movieForm').addEventListener('submit', enviarDatos);
+    </script>
 </body>
 </html>
