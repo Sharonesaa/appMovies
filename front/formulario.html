@@ -75,8 +75,9 @@
             try {
                 const response = await axios.post('http://localhost:3000/movies', formDataObject);
                 alert('Película agregada correctamente');
-                const newMovie = response.data; 
-                agregarPeliculaAlContenedor(newMovie); // Función para agregar la película al contenedor
+                closeIframe();
+                parent.location.reload()
+               
             } catch (error) {
                         let dataerrors = error.response.data.error;
                         for (let error of dataerrors) {
@@ -88,24 +89,6 @@
                     }
                 }
         
-        function agregarPeliculaAlContenedor(movie) {
-            const containerIn = $('#containerId'); // Reemplaza 'containerId' con el ID real de tu contenedor
-            const posterPath = movie.poster && movie.poster.includes("http")
-                ? movie.poster
-                : `https://image.tmdb.org/t/p/w500/${movie.poster}`;
-
-            const card = `
-                <div class="posterCard">
-                    <img style="10rem" src="${posterPath}" alt="${movie.title}" data-bs-original-title="${movie.title}">
-                    <div class="text desvanecer">
-                        <img class="imgplay" src="src/img/play.png" id="${movie._id}" media-type="movie" style="width:40%; height:25%; margin-top:55%; margin-left:30%" ; alt="play">     
-                    </div>
-                </div>
-            `;
-            containerIn.append(card);
-        }
-                    
-
         function vaciarFormulario() {
             document.getElementById("movieForm").reset();
         }
