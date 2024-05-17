@@ -1,0 +1,224 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+}
+body{
+  height: 100vh;
+  background-color: black;
+  display: block;
+  margin: 0 auto;
+}
+
+/*ENCABEZADO*/
+
+header {
+  position: fixed; /* Fija el header en la parte superior */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Un valor alto para que el header esté encima */
+}
+
+.menuBox {  background-color:rgba(0, 0, 0, 0.185);
+  padding: .9%;
+  height: 40px;
+}
+
+.mainmenu {
+  margin-right: 60px;
+  float: right;
+  display: flex; 
+  list-style-type: none; 
+  padding: 0;
+}
+
+.mainmenu li > a {
+    padding: 7px 12px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);  
+}
+
+.mainmenu li {
+  margin-right: 30px; 
+}
+
+.mainmenu agregar-btn{
+  font-size: 20px;
+    color: rgb(255, 255, 255); 
+}
+.socialNetworks {
+  margin-top: 4%;
+  align-items: center;
+  display: flex; 
+  list-style-type: none; 
+  align-items: center; /* Centra verticalmente el texto */
+  justify-content: center; /* Centra horizontalmente el texto */    
+}
+
+.socialNetworks li {
+  margin-right: 30px; 
+}
+
+.socialNetworks img {
+  width: 40px; 
+  height: 30px; 
+}
+
+
+/*CAROUSEL*/
+
+.carousel {
+  margin: 0 auto;
+  display: flex;
+  width: 100%;
+}
+
+.carousel img{
+  display:block;
+  width: 100%;
+  max-height: 600px;
+  margin-top: 0;
+}
+
+.carousel-caption h5 {
+  color:rgb(166, 0, 11); /* Color del texto */
+  font-family:  "Bebas Neue", sans-serif;
+  font-size: 80px;
+  text-align: left;
+  margin-left: -15%;
+  text-transform: uppercase;
+  margin-top: -42%;
+  font-weight: bold;
+}
+
+.carousel-caption .button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.carousel-caption .play-btn,
+.carousel-caption .info-btn {
+  background-color:rgb(166, 0, 11);;
+  border-color:rgb(124, 2, 10);
+  border-radius: .4rem;
+  border-width: 3px;
+  color: #fff; /* Añade color de texto para que sea visible */
+  padding: 5px 15px; /* Ajusta el espaciado interno */
+  font-family: 'Helvetica Neue', sans-serif;
+  font-size: 22;
+}
+
+
+.carousel-caption .botones {
+  margin-left: -108%; /* Mueve el contenedor de botones a la izquierda en un 62% del contenedor padre */
+}
+
+.text {
+  position:absolute;
+  top:0;
+  left:0;
+  width: 200px;
+  height: 300px;
+  padding:10px;
+  margin:0;
+  max-height: 300px;
+  opacity:0;
+  background-color: rgba(0, 0, 0, 0.727);
+  
+  button{
+    color:rgb(255, 255, 255);
+    width: 80%;
+    max-height: 100%;
+    background-color:rgba(116, 16, 16, 0.701) ;
+    margin-top: 10%;
+    padding: 2px 2px; /* Ajusta el espaciado interno */
+    font-family: 'Helvetica Neue', sans-serif;
+    border-radius: 5px;
+}
+}
+
+
+/*VIDEO DE TRAILER*/
+.youtubePlayerOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo transparente con opacidad */
+  z-index: 1000; /* Asegura que esté encima de otros elementos */
+  display: none; /* Inicialmente oculto */
+}
+
+.youtubePlayerContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#youtubePlayer {
+  width: 500px;
+  height: 300px;
+  
+}
+
+iframe {
+  width:100%;
+  height: 100%;
+}
+
+
+/*TARJETAS INFERIORES*/
+
+.bottomTittle{
+  width: 30rem; 
+  color:rgba(255, 255, 255, 0.971);
+  padding-top:3%;
+  padding-bottom: 1%;
+  margin-left: 1%;
+  font-family:  "Bebas Neue", sans-serif;
+  h1{
+    font-size: 70px;
+  }
+}
+
+.posters{
+  display : flex;
+  height: 300px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.posters::-webkit-scrollbar {
+  height: 10px; /* Ajusta el tamaño de la barra de desplazamiento */
+}
+
+.posters::-webkit-scrollbar-thumb {
+  background-color: rgb(0, 0, 0); /* Cambia el color del "pulgón" de la barra de desplazamiento */
+}
+
+.posters::-webkit-scrollbar-track {
+  background-color: #3d3d3d; /* Cambia el color del fondo de la barra de desplazamiento */
+}
+
+.posterCard{
+  display: inline-block;
+  position: relative;
+  img{
+    width: 10rem;
+    z-index: -1;
+    height: 300px;
+  }
+}
+
+.text:hover{
+  z-index: 1;
+}
+
+.desvanecer:hover{
+  transition: 500ms;
+  opacity:1;
+}

@@ -1,0 +1,19 @@
+{
+  "name": "practice-testing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "indexApi.js",
+  "scripts": {
+    "test": "jest --watchAll"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom"
+  }
+}
