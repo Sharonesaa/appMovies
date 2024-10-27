@@ -9,16 +9,20 @@ const renderObjects = (objects, inLocaction, media_type) => {
         const indicators = $('.carousel-indicators');
         indicators.empty();
 
-        const objectsToShow = objects.slice(0, 5);
+        // const objectsToShow = objects.slice(0, 5);
       
-        objectsToShow.map((element, index) => {
-            const isActive = index === 0 ? 'active' : ''; // Para marcar el primer elemento como activo
+        // Asegúrate de acceder a la propiedad 'results' que contiene el array de películas
+        const movies = objects.results;
+
+        // Ahora puedes usar `movies.map` para iterar sobre el array de películas
+        movies.map((element, index) => {
+            const isActive = index === 0 ? 'active' : ''; // Primer elemento activo
             const indicator = `<li data-bs-target="#moviesCarousel" data-bs-slide-to="${index}" class="${isActive}"></li>`;
-            indicators.append(indicator)
-            
-            const finalBackdrop = element.backdrop && element.backdrop.includes("http")
+            indicators.append(indicator);
+
+            const finalBackdrop = element.backdrop_path && element.backdrop_path.includes("http")
             ? element.backdrop
-            : `https://image.tmdb.org/t/p/original/${element.backdrop}&w=256&q=100`;
+            : `https://image.tmdb.org/t/p/original/${element.backdrop_path}&w=256&q=100`;
         
         
             const card = `
@@ -42,17 +46,18 @@ const renderObjects = (objects, inLocaction, media_type) => {
         const containerIn = $(`#${inLocaction}`);
         containerIn.html('');
         
-        objects = objects.reverse()
+        objects = objects.results.reverse()
         objects.forEach(element => {
             const title = element.title;
             const overview = element.overview;
-            const poster_path = element.poster && element.poster.includes("http")
-            ? element.poster
-            : `https://image.tmdb.org/t/p/w500/${element.poster}`;
+            const imagePath = element.poster_path || element.profile_path;
+            const finalImage = imagePath
+                ? `https://image.tmdb.org/t/p/w500${imagePath}`
+                : "ruta/default_image.jpg"; // Imagen por defecto si no hay `poster_path` ni `profile_path`
         
             const card = `
                 <div class="posterCard">
-                    <img style="10rem" src=${poster_path} alt="${title}" data-bs-original-title="${title}">
+                    <img style="10rem" src=${finalImage} alt="${title}" data-bs-original-title="${title}">
                     <div class="text desvanecer">
                         <img class="imgplay" src="src/img/play.png" id="${element._id}" media-type="${media_type}" style="width:40%; height:25%; margin-top:55%; margin-left:30%" ; alt="play">     
                     </div>
@@ -65,11 +70,17 @@ const renderObjects = (objects, inLocaction, media_type) => {
 
 const getObjects = async (url) => {
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2Nzk3NDg1ZWViYzU5NzcxOGU5NDZlOWZmZjkzODdkOCIsInN1YiI6IjY2MGExNzc2ZDZkYmJhMDE3ZDZmMTc3NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.01K3zTQHhY6emHwdD0TAQoLyzEfXXasvWShbPvgTArI',
+                'Content-Type': 'application/json'
+            }
+        });
         if (!response.ok) {
             throw new Error('Error al obtener datos del servidor');
         }
         const data = await response.json();
+        console.log('Datos recibidos de la API:', data); // Log para verificar los datos
         return data;
     } catch (error) {
         console.error('Error en la solicitud:', error);
@@ -77,19 +88,21 @@ const getObjects = async (url) => {
     }
 };
 
+
 const mainConstructor = async () => {
     try {
-        const carouselObjects = await getObjects('http://localhost:3000/movies');
+        const carouselObjects = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
+        console.log('Películas obtenidas para el carrusel:', carouselObjects);
         renderObjects(carouselObjects, "carousel","movie");
 
-        const moviesObjects = await getObjects('http://localhost:3000/movies');
+        const moviesObjects = await getObjects('https://api.themoviedb.org/3/trending/all/day?language=es');
         renderObjects(moviesObjects, "containerMoviesList","movie");
 
-        const seriesObjects = await getObjects('http://localhost:3000/series');
+        const seriesObjects = await getObjects('https://api.themoviedb.org/3/trending/tv/day?language=es');
         renderObjects(seriesObjects, "containerSeriesList","tv");
 
 
-        const actorsObjects = await getObjects('http://localhost:3000/actors');
+        const actorsObjects = await getObjects('https://api.themoviedb.org/3/trending/person/day?language=es');
         renderObjects(actorsObjects, "containerNovelsList","person");
     
        
