@@ -32,8 +32,8 @@ const renderObjects = (objects, inLocaction, media_type) => {
                     <div class="carousel-caption d-none d-md-block">
                     <h5>${element.title}</h5>
                     <div class="botones">
-                        <button class="btn btn-primary play-btn" id="${element.moviedb_id}" media-type="${media_type}">Trailer</button>
-                        <button class="btn btn-primary info-btn" href="">Información</button>
+                        <button class="btn btn-primary play-btn" id="${element.id}" media-type="${media_type}">Trailer</button>
+                        <button class="btn btn-primary info-btn" href="">Reseñas de usuarios</button>
                     </div>
                 </div>
             </div>`;
