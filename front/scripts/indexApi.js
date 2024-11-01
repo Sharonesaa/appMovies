@@ -59,7 +59,7 @@ const renderObjects = (objects, inLocaction, media_type) => {
                 <div class="posterCard">
                     <img style="10rem" src=${finalImage} alt="${title}" data-bs-original-title="${title}">
                     <div class="text desvanecer">
-                        <img class="imgplay" src="src/img/play.png" id="${element._id}" media-type="${media_type}" style="width:40%; height:25%; margin-top:55%; margin-left:30%" ; alt="play">     
+                        <img class="imgplay" src="src/img/play.png" id="${element.id}" media-type="${media_type}" style="width:40%; height:25%; margin-top:55%; margin-left:30%" ; alt="play">     
                     </div>
                 </div>
             `;
