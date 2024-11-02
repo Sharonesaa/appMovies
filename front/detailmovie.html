@@ -35,10 +35,6 @@
     <div id="movieDetails">
         <div id ="space"></div>
         <div id ="containerMain"></div>
-       
-            
-       
-        <!-- Aquí se mostrarán los detalles de la película -->
     </div>
     <footer>
 
@@ -69,31 +65,50 @@
 
             const title = object.title;
             const overview = object.overview;
-            const poster_path = object.poster && object.poster.includes("http")
+            const poster_path = object.poster_path && object.poster_path.includes("http")
             ? object.poster
-            : `https://image.tmdb.org/t/p/w500/${object.poster}`;
+            : `https://image.tmdb.org/t/p/w500/${object.poster_path}`;
             const id = object._id;
-            const duration = object.duration
-            const rate = object.rate;
-            const genres = object.genres;
-            const year = object.year;
-            const director = object.director;
+            const duration = object.runtime
+            const genres = object.genres.map(genre => genre.name).join(' | ');
+            const year = object.release_date;
+            const director = object.production_companies.map(production => production.name).join(' ');
+            const languages = object.spoken_languages.map(language => language.name).join(' ')
 
             const card = `
-                <div class= "infoData">
-                    <h4>${title}</h4>
-                    <p>${director}</p>
-                    <p>${year}</p>
-                    <p>${genres}</p>
-                    <p>${duration} minutos  ||  Popularidad:${rate}</p>
-                    
+               <div class="main-container">
+                    <!-- 60% - Película y póster -->
+                    <div class="movie-section">
+                        <div class="poster-container">
+                            <img src="${poster_path}" class="poster-image" alt="Poster de la película">
+
+                        </div>
+                    </div>
+
+                    <!-- 40% - Foro de comentarios -->
+                    <div class="comments-section">
+                        <div class="movie-info">
+                                <h4>${title}</h4>
+                                <p>Idiomas: ${languages}</p>
+                                <p>Director: ${director}</p>
+                                <p>Año: ${year}</p>
+                                <p>Géneros: ${genres}</p>
+                                <p>Duración: ${duration} minutos</p>
+                        </div>
+                        <div class="comments-list">
+                            <!-- Aquí se mostrarán los comentarios renderizados desde el backend -->
+                            <p class="comment">Comentario 1 de ejemplo...</p>
+                            <p class="comment">Comentario 2 de ejemplo...</p>
+                            <!-- Más comentarios -->
+                        </div>
+                        <!-- Formulario para agregar nuevo comentario -->
+                        <div class="add-comment">
+                            <textarea placeholder="Escribe tu comentario..." id="newComment"></textarea>
+                            <button onclick="addComment()">Agregar comentario</button>
+                        </div>
+                    </div>
                 </div>
-                <div class= "description">
-                    <p>${overview}</p>
-                </div>
-                <div class= "imgContainer" >
-                    <img src="${poster_path}">
-                </div>
+
             `;
             containerMain.html(card);
             
@@ -137,10 +152,6 @@
                 console.error('Error: Parámetros "id" o "media_type" faltantes en la URL');
             }
         });
-
-        
-
-        
     </script>
 
     
