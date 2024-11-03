@@ -10,7 +10,7 @@ router.use("/series",moviesRouter)
 
 router.use("/actors",moviesRouter)
 
-
+router.use("/comments",moviesRouter)
 
 module.exports = {
     router

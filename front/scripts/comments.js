@@ -8,20 +8,38 @@ function setRating(rating) {
     });
 }
 
-function addComment() {
-    const commentText = document.getElementById("newComment").value;
+const addComment = async (movieId, commentText, stars) => {
+    try {
+        const formData = {
+            movieId: movieId,
+            comment: commentText,
+            stars: stars
+        };
+        console.log(formData)
+       
+        const response = await fetch('http://localhost:3000/comments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json' // Especificamos que estamos enviando JSON
+            },
+            body: JSON.stringify(formData) // Convertimos el objeto a JSON
+        });
 
-    if (!commentText.trim() || selectedRating === 0) {
-        alert("Por favor, agrega un comentario y selecciona una calificación.");
-        return;
+        // Verificamos si la respuesta fue exitosa
+        if (!response.ok) {
+            const errorData = await response.text(); // Leemos la respuesta como texto
+            console.error('Error del servidor:', errorData); // Log del error
+            throw new Error('Error al agregar comentario: ' + response.statusText);
+        }
+
+        const data = await response.json(); // Intentamos parsear la respuesta JSON
+        alert('Comentario agregado correctamente'); // Muestra el mensaje de éxito
+        // Aquí puedes actualizar la lista de comentarios o limpiar el formulario si lo deseas
+    } catch (error) {
+        console.error('Error al agregar comentario:', error);
+        alert('Error al agregar comentario: ' + error.message);
     }
+};
 
-    const commentsList = document.querySelector(".comments-list");
-    const newComment = document.createElement("div");
-    newComment.classList.add("comment");
-    newComment.innerHTML = `<p>${commentText} <span class="rating-display">${"★".repeat(selectedRating)}${"☆".repeat(5 - selectedRating)}</span></p>`;
-    commentsList.appendChild(newComment);
 
-    document.getElementById("newComment").value = "";
-    setRating(0);
-}
+

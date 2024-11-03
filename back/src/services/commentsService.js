@@ -1,4 +1,4 @@
-const { Comment } = require("../models/commentModel");
+const { Comment } = require("../models/comentModel");
 
 module.exports = {
     getCommentsByMovieId: async (movieId) => {
