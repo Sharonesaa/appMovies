@@ -82,13 +82,13 @@ header {
 }
 
 .carousel-caption h5 {
-  color:rgb(166, 0, 11); /* Color del texto */
+  color:rgb(255, 255, 255);
   font-family:  "Bebas Neue", sans-serif;
-  font-size: 80px;
+  font-size: 50px;
   text-align: left;
   margin-left: -15%;
   text-transform: uppercase;
-  margin-top: -42%;
+  margin-top: -20%;
   font-weight: bold;
 }
 
@@ -112,7 +112,7 @@ header {
 
 
 .carousel-caption .botones {
-  margin-left: -108%; /* Mueve el contenedor de botones a la izquierda en un 62% del contenedor padre */
+  margin-left: -103%; /* Mueve el contenedor de botones a la izquierda en un 62% del contenedor padre */
 }
 
 .text {
@@ -221,4 +221,64 @@ iframe {
 .desvanecer:hover{
   transition: 500ms;
   opacity:1;
+}
+
+/* POPUP */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+}
+
+.popup-content {
+  background: #c2323280;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.popup-content h2 {
+  margin-top: 0;
+  color: #ffffff;
+}
+
+.popup-content p {
+  color: #ffffff;
+}
+@keyframes popupAnimation {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Botón de cierre */
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.popup-overlay.visible {
+  display: flex;
 }

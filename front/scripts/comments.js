@@ -20,21 +20,19 @@ const addComment = async (movieId, commentText, stars) => {
         const response = await fetch('http://localhost:3000/comments', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json' // Especificamos que estamos enviando JSON
+                'Content-Type': 'application/json' 
             },
-            body: JSON.stringify(formData) // Convertimos el objeto a JSON
+            body: JSON.stringify(formData) 
         });
 
-        // Verificamos si la respuesta fue exitosa
         if (!response.ok) {
-            const errorData = await response.text(); // Leemos la respuesta como texto
-            console.error('Error del servidor:', errorData); // Log del error
+            const errorData = await response.text(); 
+            console.error('Error del servidor:', errorData); 
             throw new Error('Error al agregar comentario: ' + response.statusText);
         }
 
-        const data = await response.json(); // Intentamos parsear la respuesta JSON
-        alert('Comentario agregado correctamente'); // Muestra el mensaje de éxito
-        // Aquí puedes actualizar la lista de comentarios o limpiar el formulario si lo deseas
+        const data = await response.json(); 
+        alert('Comentario agregado correctamente'); 
     } catch (error) {
         console.error('Error al agregar comentario:', error);
         alert('Error al agregar comentario: ' + error.message);

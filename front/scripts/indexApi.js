@@ -33,7 +33,7 @@ const renderObjects = (objects, inLocaction, media_type) => {
                     <h5>${element.title}</h5>
                     <div class="botones">
                         <button class="btn btn-primary play-btn" id="${element.id}" media-type="${media_type}">Trailer</button>
-                        <button class="btn btn-primary info-btn" href="">Reseñas de usuarios</button>
+                        <button class="btn btn-primary info-btn" href="">Comentarios</button>
                     </div>
                 </div>
             </div>`;
@@ -163,6 +163,29 @@ $(document).ready(function() {
         console.log ($(this))
         window.location.href = `detailmovie.html?id=${id}&mediatype=${media_type}`;
     });
+
+
+    $(document).ready(() => {
+        const popup = document.getElementById("welcomePopup");
+        const closeBtn = popup.querySelector(".close-btn");
+    
+        // Mostrar el pop-up al cargar la página
+        setTimeout(() => {
+            popup.classList.add("visible");
+        }, 500); // Ajusta el tiempo si quieres que aparezca después de un momento
+    
+        // Ocultar el pop-up al hacer clic en el botón "X" o fuera del contenido
+        closeBtn.addEventListener("click", () => {
+            popup.classList.remove("visible");
+        });
+    
+        popup.addEventListener("click", (e) => {
+            if (e.target === popup) {
+                popup.classList.remove("visible");
+            }
+        });
+    });
+    
 });
 
  
